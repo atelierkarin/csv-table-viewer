@@ -1,11 +1,11 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
-import UploadFileButton from '../UploadFileButton/UploadFileButton'
+import ActionButtons from "../ActionButtons/ActionButtons";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -17,12 +17,12 @@ const Topbar = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static">
+    <AppBar position='static'>
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant='h6' className={classes.title}>
           Table Viewer
         </Typography>
-        <UploadFileButton />
+        <ActionButtons />
       </Toolbar>
     </AppBar>
   );

@@ -1,17 +1,24 @@
 const initialState = {
-  file: null
+  files: []
 }
 
 const fileData = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_FILE':
-      console.log(action.file);
+    case 'ADD_FILES':
       return {
         ...state,
-        file: action.file
+        files: [
+          ...state.files,
+          ...action.files
+        ]
       }
-    default:
-      return state
+      case 'CLEAR_FILES':
+        return {
+          ...state,
+          files: []
+        }
+        default:
+          return state
   }
 }
 

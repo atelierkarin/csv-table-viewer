@@ -1,5 +1,8 @@
+export const addFiles = files => ({
+  type: 'ADD_FILES',
+  files
+})
 
-export const addFile = file => ({
-  type: 'ADD_FILE',
-  file
+export const clearFiles = () => ({
+  type: 'CLEAR_FILES'
 })
