@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import MaterialTable from "material-table";
+import { LinearProgress } from "@material-ui/core";
+import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
 
 import CSVReaderService from "../../services/CSVReaderService";
 
@@ -35,26 +37,25 @@ class MainTable extends Component {
 
       if (Array.isArray(files) && files.length > 0) {
         this.setState({ header: [], data: [], title: "" });
-        Promise.all(files.map(f => service.read(f)))
-          .then((results) => {
-            let header = []
-            let data = []
-            let title = []
+        Promise.all(files.map((f) => service.read(f))).then((results) => {
+          let header = [];
+          let data = [];
+          let title = [];
 
-            results.forEach(res => {
-              if (Array.isArray(res.data) && res.data.length > 0) {
-                const currentHeader = Object.keys(res.data[0]).map((h) => {
-                  return { title: h, field: h };
-                });
-                header = [...header, ...currentHeader];
-                data = [...data, ...res.data];
-                title.push(res.title);
-              }
-            })
+          results.forEach((res) => {
+            if (Array.isArray(res.data) && res.data.length > 0) {
+              const currentHeader = Object.keys(res.data[0]).map((h) => {
+                return { title: h, field: h };
+              });
+              header = [...header, ...currentHeader];
+              data = [...data, ...res.data];
+              title.push(res.title);
+            }
+          });
 
-            this.setState({ header, data, title: title.join(' / ') });
-            this.setState({ loading: false });
-          })
+          this.setState({ header, data, title: title.join(" / ") });
+          this.setState({ loading: false });
+        });
       } else {
         this.setState({ files: null, header: [], data: [], title: "" });
         this.setState({ loading: false });
@@ -64,9 +65,9 @@ class MainTable extends Component {
 
   render() {
     return this.state.files ? (
-      <div>
+      <Auxiliary>
         {this.state.loading ? (
-          <div>Loading...</div>
+          <LinearProgress />
         ) : (
           <MaterialTable
             columns={this.state.header}
@@ -74,7 +75,7 @@ class MainTable extends Component {
             title={this.state.title}
             options={options}></MaterialTable>
         )}
-      </div>
+      </Auxiliary>
     ) : (
       <div>No file uploaded</div>
     );

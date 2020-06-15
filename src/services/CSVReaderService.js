@@ -1,9 +1,6 @@
-import { read, utils } from 'xlsx';
+import { read, utils } from "xlsx";
 
 export default class CSVReaderService {
-
-  constructor() {}
-
   read(file) {
     if (!file) return Promise.resolve(null);
     return new Promise((res, rej) => {
@@ -17,16 +14,16 @@ export default class CSVReaderService {
           binary += String.fromCharCode(bytes[i]);
         }
 
-        let workbook = read(binary, {type : 'binary'});
+        let workbook = read(binary, { type: "binary" });
         let sheet_name_list = workbook.SheetNames;
         let target_sheets = workbook.Sheets[sheet_name_list[0]];
         let readData = utils.sheet_to_json(target_sheets);
         res({
           title: sheet_name_list[0],
-          data: readData
+          data: readData,
         });
-      }
+      };
       myReader.readAsArrayBuffer(file);
-    })
+    });
   }
 }

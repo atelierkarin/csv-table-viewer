@@ -55,12 +55,14 @@ class ActionButtons extends Component {
 
   onClearFiles = () => {
     this.handlers.onClearFiles();
-  }
+  };
 
   render() {
     return (
       <Auxiliary>
-        <Button variant="contained" onClick={this.onClearFiles}>Clear</Button>
+        <Button variant='contained' onClick={this.onClearFiles}>
+          Clear
+        </Button>
         <input
           accept='.csv,.xls,.xlsx'
           id='contained-button-file'
@@ -70,7 +72,7 @@ class ActionButtons extends Component {
         />
         <label htmlFor='contained-button-file'>
           <Button variant='contained' color='primary' component='span'>
-            Upload
+            Upload ( {this.props.files.length} )
           </Button>
         </label>
       </Auxiliary>
@@ -78,4 +80,6 @@ class ActionButtons extends Component {
   }
 }
 
-export default connect()(ActionButtons);
+export default connect((state) => ({
+  files: state.fileData.files,
+}))(ActionButtons);
